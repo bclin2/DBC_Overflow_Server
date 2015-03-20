@@ -13,4 +13,5 @@ class QuestionsController < ApplicationController
 
   def update
   end
+
 end
