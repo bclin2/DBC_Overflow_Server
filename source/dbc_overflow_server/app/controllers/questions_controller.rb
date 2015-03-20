@@ -6,6 +6,8 @@ class QuestionsController < ApplicationController
   end
 
   def index
+    @questions = Question.all
+    render :json => @questions
   end
 
   def destroy
