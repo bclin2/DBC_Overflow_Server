@@ -37,6 +37,20 @@ class QuestionsController < ApplicationController
   def update
   end
 
+  def upvote
+    @question = Question.find(params[:id])
+    @question.votes += 1
+    @question.save
+    head 200
+  end
+
+  def downvote
+    @question = Question.find(params[:id])
+    @question.votes -= 1
+    @question.save
+    head 200
+  end
+
 private
   def question_params
     params.require(:question).permit(:title, :content)

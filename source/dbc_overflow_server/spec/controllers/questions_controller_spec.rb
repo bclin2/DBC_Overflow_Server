@@ -56,13 +56,18 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe "PUT #upvote" do
     it "should increment the vote by 1 in the database" do
-      put :upvote
-      expect()
+      current_votes = question.votes
+      put :upvote, id: question.id
+      expect(question.reload.votes).to eq(current_votes + 1)
     end
   end
 
   describe "PUT #downvote" do
-
+    it "should increment the vote by 1 in the database" do
+      current_votes = question.votes
+      put :downvote, id: question.id
+      expect(question.reload.votes).to eq(current_votes - 1)
+    end
   end
 
 end
