@@ -54,6 +54,34 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe "PUT #update" do
+    context "valid input" do
+      before(:each) do
+        @changed_title = "testing CHANGED title"
+        @changed_content = "testing CHANGED content"
+        put :update, {question: {title: @changed_title, content: @changed_content}, id: question.id, }
+      end
+
+      it "should update the question with appropriate changed values" do
+        expect(question.reload.title).to eq(@changed_title)
+        expect(question.reload.content).to eq(@changed_content)
+      end
+
+      it "should return a JSON object with newly changed content" do
+        expect(response.body).to include @changed_title
+        expect(response.body).to include @changed_content
+      end
+    end
+
+    context "invalid input" do
+      it "should return an internal server error 500" do
+        @changed_content = "testing CHANGED content"
+        put :update, {question: {title: "", content: ""}, id: question.id}
+        expect(response.status).to eq 500
+      end
+    end
+  end
+
   describe "PUT #upvote" do
     it "should increment the vote by 1 in the database" do
       current_votes = question.votes
