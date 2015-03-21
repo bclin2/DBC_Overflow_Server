@@ -35,6 +35,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it "should create a Question object in the database" do
+        expect(assigns :question).to eq Question.last
         expect(Question.last.title).to eq @title
         expect(Question.last.content).to eq @content
       end
@@ -51,6 +52,17 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response.status).to eq 500
       end
     end
+  end
+
+  describe "PUT #upvote" do
+    it "should increment the vote by 1 in the database" do
+      put :upvote
+      expect()
+    end
+  end
+
+  describe "PUT #downvote" do
+
   end
 
 end

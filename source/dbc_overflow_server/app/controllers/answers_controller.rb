@@ -3,10 +3,6 @@ class AnswersController < ApplicationController
   end
 
   def create
-    p params
-    p params[:answer]
-    p params[:answer][:title]
-    p params[:question_id]
     @question = Question.find(params[:question_id])
     @answer = Answer.new(title: params[:answer][:title], content: params[:answer][:content], question_id: @question.id)
     if @answer.save
@@ -19,4 +15,6 @@ class AnswersController < ApplicationController
       }, status: 500
     end
   end
+
+
 end
