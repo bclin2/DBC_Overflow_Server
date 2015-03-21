@@ -82,6 +82,13 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    it "should delete the question from the database" do
+      delete :destroy, id: question.id
+      expect(Question.where(id: question.id).empty?).to eq true
+    end
+  end
+
   describe "PUT #upvote" do
     it "should increment the vote by 1 in the database" do
       current_votes = question.votes

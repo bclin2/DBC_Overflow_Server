@@ -32,6 +32,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+    head :no_content
   end
 
   def update
