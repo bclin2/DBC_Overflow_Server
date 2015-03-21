@@ -35,6 +35,16 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    @question = Question.find(params[:id])
+    if @question.update(question_params)
+      render :json => @question
+    else
+      @errors = @question.errors
+      render :json => {
+        error: @errors,
+        status: 500,
+      }, status: 500
+    end
   end
 
   def upvote
