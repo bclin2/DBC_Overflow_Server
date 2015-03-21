@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
       render :json => @question
     else
       @errors = @question.errors
-      # render(:file => File.join(Rails.root, 'public/500.html'), :status => 403, :layout => false)
       render :json => {
         error: @errors,
         status: 500,
@@ -18,7 +17,12 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    render :json => @questions
+    @quote = HTTParty.get(
+      "https://api.github.com/zen?access_token=#{ENV['ACCESS_TOKEN']}",
+      headers: {
+        'User-Agent' => "#{ENV['APP_NAME']}"
+      }).body
+    render :json => {questions: @questions, quote: @quote}
   end
 
   def show

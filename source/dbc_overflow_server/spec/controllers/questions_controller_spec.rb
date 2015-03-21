@@ -5,10 +5,16 @@ RSpec.describe QuestionsController, type: :controller do
   let!(:answer) {FactoryGirl.create :answer}
 
   describe "GET #index" do
-    it "should return a json of all questions" do
+    it "should return a json with all questions" do
       get :index
       expect(response.status).to eq 200
       expect(response.body).to include question.to_json
+    end
+
+    it "should return a json with zen quote from github api" do
+      get :index
+      expect(assigns :quote).to be_truthy
+      expect(response.body).to include 'quote'
     end
   end
 
