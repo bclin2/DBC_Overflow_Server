@@ -16,5 +16,19 @@ class AnswersController < ApplicationController
     end
   end
 
+  def upvote
+    @answer = Answer.find(params[:id])
+    @answer.votes += 1
+    @answer.save
+    head 200
+  end
+
+  def downvote
+    @answer = Answer.find(params[:id])
+    @answer.votes -= 1
+    @answer.save
+    head 200
+  end
+
 
 end
