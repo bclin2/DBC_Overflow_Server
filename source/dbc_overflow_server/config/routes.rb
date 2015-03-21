@@ -3,8 +3,15 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :questions do
+    member do
+      put :upvote
+      put :downvote
+    end
     resources :answers do
-
+      member do
+        put :upvote
+        put :downvote
+      end
     end
   end
 
